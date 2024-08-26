@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorio de Contactos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabContents.forEach(content => {
+                content.style.display = 'none';
+            });
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).style.display = 'block';
+            evt.currentTarget.classList.add('active');
+        }
+        
+        function updateTable() {
+            const ramo = document.getElementById('ramo-select').value;
+            const tableBody = document.querySelector('#OIC-por-Ramo tbody');
+            tableBody.innerHTML = '';
+            
+            const data = {
+                "Gobernación": [
+                ["Gobernación", "Contrataciones Públicas", "Alejandro López Chávez", "Director de Auditoría Interna", "55 5128 0000 Ext. 31441", "alopez@segob.gob.mx"],
+                ["Gobernación", "Control Interno", "Florencio Hernández González", "Director de Desarrollo y Mejora de la Gestión Pública ", "55 5128 0000 Ext. 31429", "fhernandezg@segob.gob.mx"],
+                ["Gobernación", "Fiscalización", "Mario Duarte Villafaña", "Director de Auditoría Interna", "55 5128 0000 Ext. 31431", "mduarte@segob.gob.mx - mario.duarte@funcionpublica.gob.mx"],
+                ["Gobernación", "Quejas, Denuncias e Investigaciones", "Taide René Barrera Juárez", "Director de Quejas, Denuncias e Investigaciones", "55 5128 0000 Ext. 31315", "taide.rene@funcionpublica.gob.mx"],
+                ["Gobernación", "Responsabilidades", "Marlene Eréndira Jardón Martínez", "Directora de Responsabilidades", "55 5128 0000 Ext. 31332", "mjardon@segob.gob.mx"],
+        
+                    // Agregar más registros para Gobernación
+                ],
+                // Agregar datos similares para otras opciones de RAMO
+                "Relaciones Exteriores": [
+                ["Relaciones Exteriores", "Contrataciones Públicas", "Gabriel Ángel Castañeda", "Subdirector de Área", "55 3686 5100 Ext. 7721", "gangel@sre.gob.mx"],
+                ["Relaciones Exteriores", "Control Interno", "Soledad Guadalupe López Acosta", "Titular del Área de Especialidad en Control Interno", "55 3686 5100 Ext. 5961", "slopeza@sre.gob.mx"],
+                ["Relaciones Exteriores", "Fiscalización", "Jesús Onofre Ortiz", "Titular del Área Especializada en Fiscalización", "55 3686 5100 Ext. 5970", "jonofre@sre.gob.mx"],
+                ["Relaciones Exteriores", "Quejas, Denuncias e Investigaciones", "Israel Arturo Pérez Ruiz", "Titular de Área de Especialidad en Quejas, Denuncias e Investigaciones", "55 3686 5100 Ext. 7750", "iaperez@sre.gob.mx"],
+                ["Relaciones Exteriores", "Responsabilidades", "Ernesto Camarillo Haro", "Subdirector de Área", "55 3686 5100 Ext. 7734", "ecamarillo@sre.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Seguridad y Protección Ciudadana": [
+                ["Seguridad y Protección Ciudadana", "Contrataciones Públicas",   "Rosaura Carolina Juárez Robledo", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública, y Suplente del Titular de Área de Especialidad en Contrataciones Públicas", "55 5536 8897 Ext. 89764", "sandy_villamontes@hacienda.gob.mx"],
+                ["Seguridad y Protección Ciudadana", "Control Interno",           "Lillian Morales Patiño", "Titular del Área de Especialidad en Control Interno", "55 1103 6000 Ext. 72540", "lillian.morales@sspc.gob.mx"],
+                ["Seguridad y Protección Ciudadana", "Fiscalización",             "María Georgina Mejía Alvarado", "Directora de Área", "55 1103 6000 Ext. 72549", "maria.mejia@funcionpublica.gob.mx"],
+                ["Seguridad y Protección Ciudadana", "Quejas, Denuncias e Investigaciones", "Diego Mauricio Malpica Meléndez", "Director del Área de Especialidad en Quejas, Denuncias e Investigaciones", "55 5128 4100 Ext. 14326", "diego.malpica@oadprs.gob.mx"],
+                ["Seguridad y Protección Ciudadana", "Responsabilidades",          "Xavier Lascurain Abarca", "Director de Área", "55 5484 6700 Ext. 68053", "x.lascurain.oic@funcionpublica.gob.mx"],
+
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Hacienda": [
+                    ["Hacienda", "Contrataciones Públicas", "Sandy Omar Villamonte Saravia", "Director de Auditoría y Suplente del Titular del Área de Especialidad en Contrataciones Públicas", "+52 123 456 7890 Ext. 123", "juan.perez@gob.mx"],
+                    ["Hacienda", "Control Interno",         "Carlos Alberto Muñoz Díaz", "Director de Mejora de la Gestión Pública", "+52 123 456 7890 Ext. 123", "juan.perez@gob.mx"],
+                    ["Hacienda", "Fiscalización", "Rogelio Álvarez López", "Director de Auditoría C", "+52 123 456 7890 Ext. 123", "juan.perez@gob.mx"],
+                    ["Hacienda", "Quejas, Denuncias e Investigaciones", "Rocío Lizbeth Vera Bernal", "Subdirectora de Área", "+52 123 456 7890 Ext. 123", "juan.perez@gob.mx"],
+                    ["Hacienda", "Responsabilidades", "María Angélica González Pérez", "Titular del Área de Especialidad en Responsabilidade",  "+52 123 456 7890 Ext. 123", "juan.perez@gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Bienestar": [
+                    ["Bienestar", "Contrataciones Públicas", "Claudia Méndez Juárez", "Directora de Auditoría a Oficinas", "55 5328 5000 Ext.51512", "claudia.mendezj@bienestar.gob.mx"],
+                    ["Bienestar", "Control Interno", "Miriam Itzel Cruz Reyes", "Coordinadora de Control Interno", "55 5328 5000 Ext.51421", "miriam.cruz.oic@funcionpublica.gob.mx - miriam.cruz@bienestar.gob.mx"],
+                    ["Bienestar", "Fiscalización", "Mario Galarza Miranda", "Director de Auditoría a Órganos Desconcentrados", "55 5328 5000 Ext.51526", "mario.galarza@bienestar.gob.mx"],
+                    ["Bienestar", "Quejas, Denuncias e Investigaciones", "Erika Liliana Rangel Martínez", "Abogada", "55 5328 5000 Ext.51419", "erika.rangel@bienestar.gob.mx"],
+                    ["Bienestar", "Responsabilidades", "Natali García Sandoval", "Jefa de Departamento", "55 5328 5000 Ext.51422", "natali.garcia@bienestar.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Medio Ambiente y Recursos Naturales": [
+                    ["Medio Ambiente y Recursos Naturales", "Contrataciones Públicas", "Sandra Vitoria Ruiz Cabrera", "Coordinadora Ejecutiva de Programas Prioritarios y Suplente del Titular del Área de Especialidad en Contrataciones Públicas", "55 5490 2100 Ext.14654", "sandra.ruiz.oic@funcionpublica.gob.mx"],
+                    ["Medio Ambiente y Recursos Naturales", "Control Interno", "Edith Álvarez Gómez", "Directora de Mejora", "55 5490 2100 Ext.14671", "edith.alvarezg@semarnat.gob.mx"],
+                    ["Medio Ambiente y Recursos Naturales", "Fiscalización", "Liliana Buendía Buendía", "Titular del Área de Especialidad en Fiscalización", "55 5490 2100 Ext.22179", "liliana.buendia.oic@funcionpublica.gob.mx"],
+                    ["Medio Ambiente y Recursos Naturales", "Quejas, Denuncias e Investigaciones", "Gustavo Alejandro Toledo Rodríguez", "Director de Quejas", "55 5490 2100 Ext.12393", "gustavo.toledo@semarnat.gob.mx"],
+                    ["Medio Ambiente y Recursos Naturales", "Responsabilidades", "Martha Angélica Hernández Nieves", "Directora de Responsabilidades", "55 5490 2100 Ext.24422", "martha.hernandez@semarnat.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Energía": [
+                    ["Energía", "Contrataciones Públicas", "Héctor Rubio Patiño", "Director de Auditoría para Desarrollo y Mejora de la Gestión Pública", "55 5000 6000 Ext.1013", "hrubio@energia.gob.mx"],
+                    ["Energía", "Control Interno", "Myrela Lucía Calderón Pacheco", "Encargada del Área de Especialidad en Control Interno", "55 5000 6000 Ext.2009", "mcalderon@energia.gob.mx"],
+                    ["Energía", "Fiscalización", "Marco Antonio Rodríguez Tapia", "Subdirector del Área de Especialidad en Fiscalización", "55 5000 6000 Ext.1084", "mrodriguez@energia.gob.mx"],
+                    ["Energía", "Quejas, Denuncias e Investigaciones", "Mario Arturo Barrera Rodríguez", "Titular del Área de Especialidad en Quejas, Denuncias e Investigaciones", "55 5000 6000 Ext.1345", "mabarrera@energia.gob.mx"],
+                    ["Energía", "Responsabilidades", "Víctor Manuel Martija Consuelos", "Subdirector de Responsabilidades", "55 5000 6000 Ext.2260", "victor.martija.oic@funcionpublica.gob - vmmartija@energia.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Economía": [
+                    ["Economía", "Contrataciones Públicas", "Alejandro Rodríguez Licona", "Director de Desarrollo de la Gestión Pública y Suplente del Titular del Área de Especialidad en Contrataciones Públicas", "55 5629 9500 Ext.21208", "alejandro.rodriguez@economia.gob.mx"],
+                    ["Economía", "Control Interno", "Rosalva Pineda Juárez", "Directora de Mejora de la Gestión Pública", "55 5629 9500 Ext.21213", "rosalva.pineda@economia.gob.mx"],
+                    ["Economía", "Fiscalización", "Armando Chavéz Martínez", "Director de Auditoría Interna", "55 5629 9500 Ext.21239", "armando.chavez@economia.gob.mx"],
+                    ["Economía", "Quejas, Denuncias e Investigaciones", "Roberto Martínez Barjau", "Director de Quejas y Denuncias", "55 5629 9500 Ext.21217", "roberto.martinez@economia.gob.mx"],
+                    ["Economía", "Responsabilidades", "Alma Yolanda Villagómez Arroyo", "Directora de Área de Responsabilidades", "55 5629 9500 Ext.21206", "alma.villagomez@economia.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Agricultura y Desarrollo Rural": [
+                    ["Agricultura y Desarrollo Rural", "Contrataciones Públicas", "Diana Colín Hernández", "Directora de Área ", "55 3871 8300 Ext.29137", "diana.colin@agricultura.gob.mx"],
+                    ["Agricultura y Desarrollo Rural", "Control Interno", "Emilia Bonilla Jiménez", "Subdirector de Área", "55 3871 1000 Ext.29161", "emilia.bonilla.oic@funcionpublica.gob.mx"],
+                    ["Agricultura y Desarrollo Rural", "Fiscalización", "Eduardo Reyes Gómez", "Auditor Ejecutivo Regional", "55 3871 1000 Ext.29141", "eduardo.rgomez@agricultura.gob.mx"],
+                    ["Agricultura y Desarrollo Rural", "Quejas, Denuncias e Investigaciones", "Marco Antonio Vargas Castillo", "Director de Información", "55 3871 1000 Ext.29151", "marco.vargas@agricultura.gob.mx"],
+                    ["Agricultura y Desarrollo Rural", "Responsabilidades", "Carlos Armando Franco Hernández", "Director de Responsabilidades", "55 3871 8300 Ext.29158 y 29135", "carlos.franco@funcionpublica.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Infraestructura, Comunicaciones y Transportes": [
+                    ["Infraestructura, Comunicaciones y Transportes", "Contrataciones Públicas", "Víctor Emanuel Madrid Herrera", "Director de Administración y Suplente del Titular del Área de Contrataciones Públicas", "55 5723 9300 Ext.12002", "victor.madrid@funcionpublica.gob.mx"],
+                    ["Infraestructura, Comunicaciones y Transportes", "Control Interno", "Ericsson Pedro Robles Rodríguez", "Director de Competitividad y Calidad", "55 5723 9300 Ext.12023", "ericsson.robles@funcionpublica.gob.mx"],
+                    ["Infraestructura, Comunicaciones y Transportes", "Fiscalización", "Ruth Patricia Perea Sandoval", "Directora de Auditoría Interna", "55 5723 9300 Ext.12018", "ruth.perea@funcionpublica.gob.mx"],
+                    ["Infraestructura, Comunicaciones y Transportes", "Quejas, Denuncias e Investigaciones", "María Concepción Medina Castillo", "Directora de Quejas y Denuncias", "55 5723 9300 Ext.12021", "maria.medina.oic@funcionpublica.gob.mx"],
+                    ["Infraestructura, Comunicaciones y Transportes", "Responsabilidades", "Sandra Moctezuma Ortiz", "Directora de Área de Responsabilidades", "55 5723 9300 Ext.12024", "sandra.moctezuma@funcionpublica.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Educación Pública": [
+                    ["Educación Pública", "Contrataciones Públicas", "José Armando García Reyes", "Director de Responsabilidades y Suplente del Titular del Área de Especialidad en Contrataciones Públicas", "55 3601 8650 Ext.66225", "jose.garciar.oic@funcionpublica.gob.mx"],
+                    ["Educación Pública", "Control Interno", "David Rogelio Rodríguez Arias", "Director de Área", "55 3601 8650 Ext.66125", "drrodriguez@nube.sep.gob.mx"],
+                    ["Educación Pública", "Fiscalización", "María del Rocío Valdéz Chiapas", "Directora de Auditoría Interna", "55 3601 8650 Ext.66440", "mrvaldez@nube.sep.gob.mx"],
+                    ["Educación Pública", "Quejas, Denuncias e Investigaciones", "Sergio González González", "Subdirector del Sistema Integral de Atención Ciudadana", "55 3601 8650 Ext.66240", "sergio.gonzalezg@nube.sep.gob.mx"],
+                    ["Educación Pública", "Responsabilidades", "Sandro Diego Bárcena García", "Director Jurídico", "55 3601 8650 Ext.66434", "sandro.barcena@nube.sep.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Salud": [
+                    ["Salud", "Contrataciones Públicas", "Miguel Oscar Bernal Espinosa", "Titular del Área de Especialidad en Contrataciones Públicas", "55 2000 3100 Ext.53129", "miguel.bernal@salud.gob.mx"],
+                    ["Salud", "Control Interno", "Mauricio Alejandro Orozco Molina", "Director de Fortalecimiento Interno", "55 2000 3100 Ext.53170", "mauricio.orozco@salud.gob.mx"],
+                    ["Salud", "Fiscalización", "Dolores Gómez Moreno", "Subdirectora de Auditoría E", "55 2000 3100 Ext.53249", "dolores.gomez@salud.gob.mx"],
+                    ["Salud", "Quejas, Denuncias e Investigaciones", "Manuel Martínez Montañez", "Subdirector de Quejas, Denuncias y Atención Ciudadana", "55 2000 3100 Ext.53186", "manuel.martinez@salud.gob.mx"],
+                    ["Salud", "Responsabilidades", "Sergio Gutiérrez Reyes", "Titular del Área de Especialidad en Responsabilidades", "55 2000 3100 Ext.53120", "sergio.gutierrez@salud.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Trabajo y Previsión Social": [
+                    ["Trabajo y Previsión Social", "Contrataciones Públicas", "Arturo López Hernández", "Subdirector de Inconformidades y Suplente del Titular del Área de Especialidad en Contrataciones Públicas", "55 5002 3300 Ext.63321", "arturo.lopezh@stps.gob.mx - arturo.lopez@funcionpublica.gob.mx"],
+                    ["Trabajo y Previsión Social", "Control Interno", "Merly Lorena Hernández Sosa", "Directora de Área de Especialidad en Control Interno", "55 5002 3300 Ext.63373", "merly.hernandez@stps.gob.mx"],
+                    ["Trabajo y Previsión Social", "Fiscalización", "Ana Emilia Hernández García", "Subdirectora de Auditoría", "55 5002 3300 Ext.63324", "ahernandezg@stps.gob.mx - ana.hernandez@funcionpublica.gob.mx "],
+                    ["Trabajo y Previsión Social", "Quejas, Denuncias e Investigaciones", "Vania Lira Hernández", "Abogada", "55 5002 3300 Ext.63377", "vania.hernandez.oic@funcionpublica.gob.mx"],
+                    ["Trabajo y Previsión Social", "Responsabilidades", "Luis Armando Ballinas Oceguera", "Titular del Área de Especialidad en Responsabilidades", "55 5002 3321 Ext.63366", "luis.ballinas@stps.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Desarrollo Agrario, Territorial y Urbano": [
+                    ["Desarrollo Agrario, Territorial y Urbano", "Contrataciones Públicas", "Alejandro Gómez Carreón", "Titular del Área de Especialidad en Contrataciones Públicas", "55 6820 9700 Ext.50509", "alejandro.gomez@sedatu.gob.mx"],
+                    ["Desarrollo Agrario, Territorial y Urbano", "Control Interno", "Blanca Lydia Orozco Montaño", "Directora del Área de Especialidad en Control Interno", "55 5062 1400 Ext.3156", "blanca.orozco.oic@funcionpublica.gob.mx"],
+                    ["Desarrollo Agrario, Territorial y Urbano", "Fiscalización", "Jaqueline Adriana Pérez Manjarrez", "Directora de Área en Fiscalización", "55 6820 9700 Ext.50207", "jaqueline.perez.oic@funcionpublica.gob.mx"],
+                    ["Desarrollo Agrario, Territorial y Urbano", "Quejas, Denuncias e Investigaciones", "Sandra Regina Hernández Zetina", "Directora de Área", "55 6820 9700 Ext.50503", "sandra.hernandez@sedatu.gob.mx"],
+                    ["Desarrollo Agrario, Territorial y Urbano", "Responsabilidades", "Oscar Gerardo Mejía Torres", "Auditor", "55 6820 9700 Ext.50505", "oscar.mejia@sedatu.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Cultura": [
+                    ["Cultura", "Contrataciones Públicas", "Marisol López Núñez", "Titular del Área de Especialidad en Contrataciones Públicas", "55 4155 0200 Ext.9430", "mlopezn@cultura.gob.mx"],
+                    ["Cultura", "Control Interno", "Ricardo Arturo Colmenero Vega", "Subdirector de Área de Especialidad en Control Interno", "55 4155 0200 Ext.9962", "rcolmenerov@cultura.gob.mx"],
+                    ["Cultura", "Fiscalización", "Juan Martín Jiménez Ramírez", "Jefe de Departamento", "55 4155 0200 Ext.9440", "juan.jimenez.oic@funcionpublica.gob.mx"],
+                    ["Cultura", "Quejas, Denuncias e Investigaciones", "Juan Enrique Reynoso Aldana", "Titular del Área de Especialidad en Quejas, Denuncias e Investigaciones", "55 4155 0200 Ext.9983 y 9445", "jreynosoa@cultura.gob.mx"],
+                    ["Cultura", "Responsabilidades", "Juan Carlos Avilés Hernández", "Titular del Área de Especialidad en Responsabilidades", "55 4155 0200 Ext.9439", "javilesh@cultura.gob.mx"],
+                    // Agregar más registros para Gobernación
+                ],
+
+                "Turismo": [
+                    ["Turismo", "Contrataciones Públicas", "María Laura Vázquez Cermeño", "Auditor Supervisor de Auditoría Interna y Suplente del Titular del Área de Especialidad en Contrataciones Públicas", "55 3003 1600 Provisional 55 5723 9300 Ext.4067 Provisional 12051 ", "maria.vazquezc@funcionpublica.gob.mx"],
+                    ["Turismo", "Control Interno", "Elizabeth Mercado Salgado", "Subdirectora de Responsabilidades ", "55 3003 1 6000 Ext.4066", "elizabeth.mercado.oic@funcionpublica.gob.mx"],
+                    ["Turismo", "Fiscalización", "Andrés Casiano Mendoza", "Jefe de Departamento de Auditoría de Control Interno", "55 3003 1600 Ext.4064", "andres.casiano.oic@funcionpublica.gob.mx - acasianom@sectur.gob.mx"],
+                    ["Turismo", "Quejas, Denuncias e Investigaciones", "Elizabeth Mercado Salgado", "Subdirectora de Responsabilidades", "55 3300 31603 Ext.4066 ", "elizabeth.mercado.oic@funcionpublica.gob.mx"],
+                    ["Turismo", "Responsabilidades", "Georgina Castro Trahyn", "Área de Especialidad en", "55 6003 1600 Ext.4062", "gcastrot@sectur.gob.mx "],
+                    // Agregar más registros para Gobernación
+                ],
+            };
+            
+            if (data[ramo]) {
+                data[ramo].forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.textContent = cell;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            }
+        }
+        
+        function updateEnlacesTable() {
+            const enlace = document.getElementById('enlace-select').value;
+            const tableBody = document.querySelector('#Enlaces-OIC-Especificos tbody');
+            tableBody.innerHTML = '';
+            
+            const data = {
+                "Autoridad Educativa Federal de la Ciudad de México": [
+                    ["Lcdo. Pedro Fernando Enríquez González", "Titular del Área de Responsabilidades", "pedro.enriquezg@aefcm.gob.mx", "55 36 01 71 00, ext. 48542", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                    
+                
+                    // Agregar más registros para este enlace
+                ],
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Administración del Sistema Portuario Altamira": [
+                ["Lcda. Valeria Navarrete Muñoz", "Titular del Área de Quejas Denuncias e Investigaciones", "vnavarrete@puertoaltamira.com.mx", "833 260 60 60 ext. 70013", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Administración del Sistema Portuario Nacional Coatzacoalcos S.A. de C.V.": [
+                ["Lcda.Mayeli Salazar Anastacio", "Auditora", "auditora@puertocoatzacoalcos.com.mx", "921 211 0270 ext.70320", "Interior Del Recinto Portuario SN Col Centro  CP 96400 Coatzacoalcos Veracruz", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Integral De Dos Bocas S.A. De C.V.": [
+                ["Lcda. Amparito del Carmen Escalante Escalante", "Titular del Órgano Interno de Control", "scontraloria@puertodosbocas.com.mx", "933-33-3-51-76, ext. 70403", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Integral De Ensenada S.A. De C.V.": [
+                ["Lcdo. Héctor Moisés Morán Martínez ", "Titular del Área de Responsabilidades", "hmoran@puertoensenada.com.mx", "646-178-28-60, ext. 70603", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Guaymas S.A. de C.V.": [
+                ["Lcda. Lucero Adhilene González Galaviz", "Auditora", "auditoroic@puertodeguaymas.com.mx", "622 225 2250 ext. 70818", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Lázaro Cárdenas S.A. De C.V.": [
+                ["Lcdo. Roberto Llamas Valdovinos", "Titular del Área de Quejas, Denuncias e Investigaciones ", "rllamas@puertolazarocardenas.com.mx", "753 5330 700 ext. 71191", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Manzanillo S.A. De C.V": [
+                ["C.P. Esther Aracely Valdez Álvarez", "Titular del Area de Auditoria Interna, Desarrollo y mejora de la getion publica", "evaldez@puertomanzanillo.com.mx", "314-33-11-400 ext. 71373", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Integral De Mazatlán S.A. De C.V.": [
+                ["Lcdo. Jesús Alfredo Martínez Torres", "Titular del Área de Responsabilidades", "oic@puertomazatlan.com.mx", "669- 915-60-99  ext. 71503", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Integral De Progreso S.A.De C.V.": [
+                ["Lcda. Adriana Guadalupe García Paredes", "Titular del Área de Responsabilidades", "tresponsabilidades@puertosyucatan.com", "969 93-43-250 Ext.71814", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Puerto Chiapas, S.A. de C.V.": [
+                ["Lcda. Jaqueline López Zepeda", "Titular del Área de Responsabilidades", "responsabilidades@puertochiapas.com.mx", "962 6286 8401 ext. 72063", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Puerto Vallarta, S.A. de C.V.": [
+                ["Lcdo. Carlos Alberto Carrera Vazcoy", "Titular del Área de Responsabilidades", "responsabilidades@puertodevallarta.com.mx", "322 2241 000 ext.73250", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Integral De Salina Cruz S.A. De C.V.": [
+                ["Lcda. Aimeé Guadalupe García Silva", "Titular del Área de Quejas Denuncias e Investigaciones", "oicquejas@puertosalinacruz.com.mx", "971-717 30 70, ext:72130", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Tampico, S.A. de C.V.": [
+                ["Lcdo. Juan Diego Velázquez González", "Titular del Área de Quejas Denuncias e Investigaciones", "jdquejas@puertodetampico.com.mx", "833 2411 400 ext. 72431", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Integral De Topolobampo, S.A. De C.V.": [
+                ["Lcda. Elvia Lourdes Martin Mata", "Titular del Órgano Interno de Control", "oic@puertotopolobampo.com.mx", "668-816-39-70, ext. 72503", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Tuxpán S.A. de C.V.": [
+                ["Lcdo. Luis Antonio Vega Martínez", "Auditor Interno", "auditor@puertotuxpan.com.mx", "783 1023 030 ext. 72708", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Administración del Sistema Portuario Nacional Veracruz S.A. de C.V.": [
+                ["Lcdo. Marco Antonio Sosa Rodríguez", "Titular del Órgano Interno de Control Específico", "toic@puertodeveracruz.com.mx", "229 923 2170 ext. 72903", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Aeropuerto Internacional de la Ciudad de México S.A. de C.V. y Servicios Aeroportuarios de la Ciudad de México S.A. de C.V.": [
+                ["Lcdo. José Antonio Montero Villa   Lcda. Fabiola Jiménez Martínez", "Titular del Órgano Interno de Control Específico   Consultora (Apoyo)", "fjimenez@aicm.com.mx  oic.quejas@aifa.aero", "55 2482 2400 ext. 2312   55 2482 2400 ext. 2683", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Aeropuerto Internacional Felipe Ángeles": [
+                ["Lcdo. Martín Ramírez Martínez", "Auditor", "oic.quejas@aifa.aero", "55 5798 9800 ext. 12537", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Aeropuertos y Servicios Auxiliares": [
+                ["Mtro. Ricardo Rembrandt Romero Ortiz", "Titular del Área de Responsabilidades", "rrromeroo@asa.gob.mx", " 55 5133 1000 ext. 1833", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Agencia Nacional de Aduanas de México": [
+                ["Lcdo. Eduardo Rafael González Martínez", "Titular del Área de Auditoría Interna y Titular del Área de Auditoría para Desarrollo y Mejora de La Gestión", "eduardo.gonzalez@anam.gob.mx", "55 99 90 64 12 ", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Agencia Espacial Mexicana": [
+                ["C.P. José Domínguez Ramos ", "Titular del Órgano Interno de Control", "dominguez.jose@aem.gob.mx", "55 32 25 89 17 ", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Banco del Bienestar, S.N.C., I.B.D.": [
+                ["Lcda. Claudia Rosana Morales Lara", "Titular del Área de Responsabilidades", "claudia.morales@bancodelbienestar.gob.mx", "55 5481 3300 ext. 3455", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Banco Nacional de Comercio Exterior, S.N.C.": [
+                ["Lcdo. Edgar Rafael Torres Barrera", "Titular del Área de Responsabilidades", "etorres@bancomext.gob.mx", "55 5449 9391", "Periférico Sur. No. 4333, Piso 3 Ala Oriente, Col. Jardines De La Montaña,  Alcaldía Tlalpan C.P. 14210, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Banco Nacional de Obras y Servicios Públicos, S.N.C": [
+                ["Lcdo. Edgar Rafael Torres Barrera", "Titular del Área de Responsabilidades", "etorres@bancomext.gob.mx", "55 5449 9391", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Banco Nacional del Ejército, Fuerza Aérea, y Armada S.N.C": [
+                ["C.P. Araceli Saldaña Cárdenas", "Gerente de Auditoría Interna", "asaldanac@banjercito.com.mx", "55 5270 1200 ext. 1296", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Caminos y Puentes Federales de Ingresos y Servicios Conexos": [
+                ["C.P. Mireya Pacheco Figueroa", "Gerente de Control de Gestión e Informes", "mypacheco@capufe.gob.mx", "777 329 2100 ext. 7414", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro De Ingeniería y Desarrollo Industrial": [
+                ["C.P. Miguel Ángel García Murillo", "Titular de Auditoría Interna", "agarcia@cidesi.edu.mx", "442-211-98-31", "Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación Científica de Yucatán A.C.": [
+                ["Lcdo. Jose Luis Naranjo Bobadilla", "Titular del Órgano Interno de Control Específico", "titular_oic@funcionpublica.gob.mx", "999 942 8363 ext. 103", "Calle 43, No. 130, Col. Chuburná De Hidalgo, Mérida, Yucatán C.P.  97200", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación Científica y de Educación Superior de Ensenada, Baja California": [
+                ["C.P. Magda Elvia Zamora Lozano", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "mzamora@cicese.mx", "646 175 0510 y 646 175 0511", "Carretera Ensenada -Tijuana No. 3918,  Zona Playitas, Edificio Administrativo 3Er Piso, Oficina 303, C.P. 22860, Ensenada, B.C.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación e Innovación en Tecnología de la Información y Comunicación": [
+                ["Lcda. Irma Raquel Castañeda Alcázar", "Titular del Área de Responsabilidades", "irma.castaneda@infotec.mx", "(55) 56242800 ext. 1104", "Ave. San Fernando No. 37,  Col. Toriello Guerra, C.P. 14050, Alcaldía Tlalpan, México D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación en Alimentación y Desarrollo A.C.": [
+                ["Lcda. Diana Alejandra Juárez Sánchez", "Auxiliar del Titular del Órgano Interno de Control Específico", "diana.juarez@ciad.mx", "662 289 2400 ext. 237", "Carretera A La Victoria Km. 0.6, Col. La Victoria, C.P. 83304, Hermosillo, Sonora", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación en Ciencias de Información Geoespacial. A.C.": [
+                ["Lcda. Araceli Hernández Cruz", "Auditora", "ahernandez@centrogeo.edu.mx", "55 2615 2508 ext. 2139", "Calle Mónaco 276-A Col. San Andrés Zacahuitzco, Benito Juárez C.P. 03550 México D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación en Matemáticas A.C.": [
+                ["C.P. Olga Lidia Fernández Terrones", "Titular del Órgano Interno de Control Específico", "lidia@cimat.mx", "473 732 7155 ext. 4519", "Jalisco S/N, Col. Valenciana, C.P. 36023, Guanajuato, Guanajuato", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación en Materiales Avanzados S.C.": [
+                ["C.P. Isabel Cristina Méndez Pérez", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "isabel.mendez@cimav.edu.mx", "614 439 1100 ext. 1182", "Av. Miguel De Cervantes No. 120, Complejo Industrial Chihuahua, C.P. 31136, Chihuahua, Chihuahua", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación en Química Aplicada": [
+                ["M.C. Mayra Deyanira López Bustos", "Titular del Área de Responsabilidades", "mayra.lopez@ciqa.edu.mx", "844 4389 830 ext. 1367", "Blvd Ing. Enrique Reyna Hermosillo No. 140, Col. San José De Los Cerritos,  C.P. 25294 Saltillo, Coahuila", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación y Asistencia en Tecnología y Diseño del Estado de Jalisco A.C.": [
+                ["Lcda. Claudia Gómez Volquarts", "Titular del Órgano Interno de Control ", "ciatej_toic@funcionpublica.gob.mx cgomez@ciatej.mx", "333 345 5200  ext. 1116", "Av. Normalistas 800, Col. Colinas De La Normal, C.P. 44270, Guadalajara, Jalisco", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación y Desarrollo Tecnológico en Electroquímica, S.C.": [
+                ["Lcda. Maria Itzel Chávez Gómez ", "Analista Jurídico", "mchavez@cideteq.mx", "442 101 5500 ext. 5521", "Camino A Los Olvera No. 44, P.B., Oficina De Vinculación, Col. Los Olvera, C.P. 76904, Corregidora, Querétaro", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigación y Docencia Económicas, A.C.": [
+                ["Lcda. Elsa Gabriela Tovar Bravo", "Titular del Área de Responsabilidades y Titular del Área de Quejas", "elsa.tovar@cide.edu", "55 5727 9800 Ext. 6030", "Carretera México Toluca No. 3655, Col. Lomas De Santa Fe, Alcaldía Álvaro Obregón, D.F., C.P. 01219", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro Nacional de Inteligencia": [
+                ["Erika Díaz Juárez", "Titular del Área de Quejas, Denuncias eInvestigaciones", "erika.diaz.oic@funcionpublica.gob.mx", "55 5624 3700 ext. 613683", "Camino Real a Contreras no.35 Col La Concepción, Magdalena Contreras ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigaciones Biológicas del Noroeste S.C.": [
+                ["Ariel Ramiro Simental Calvillo", "Titular del Área de Responsabilidades", "asimental@cibnor.mx", "612 1238 400 ext. 3257", "Km. 1 Carretera A San Juan De La Costa, Predio El Comitán C.P. 23605 La Paz, Baja California Sur", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigaciones en Óptica A.C.": [
+                ["Lcda. Anya Lizzette Bermúdez Torres", "Titular del Órgano Interno de Control Específico", "contraloria@cio.mx cio_toic@funcionpublica.gob.mx", "477 441 4200 ext. 317", "Loma Del Bosque No. 115, Piso 2, Oficina 237, Col. Lomas Del Campestre; C.P. 37150, León Guanajuato", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Investigaciones y Estudios Superiores en Antropología Social": [
+                ["Lcdo. Daniel Oswaldo Venegas Franco", "Auditor", "daniel.venegas@ciesas.edu.mx", "55 5487 3690 ext. 1054", "Calle Niño Jesús No. 251,  Col. La Joya, C.P. 14090, Alcaldía Tlalpan, México D.F. ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro Nacional de Control de Energía": [
+                ["Lcdo. Carlos García Rayón", "Titular del Área de Auditoria Interna, de Desarrollo y Mejora de la Gestión Pública", "carlos.garcia@cenace.gob.mx", "55 75 88 42 00 ext. 19200", "Blvd. Adolfo López Mateos No. 2157, Piso 10, Col. Los Alpes, C.P. 01010, Alcaldía Álvaro Obregón, Ciudad De México, ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro Nacional de Control del Gas Natural": [
+                ["Lcdo. Gustavo Javier Pulido Trejo", "Titular del Área de Auditoria Interna, Desarrollo y Mejora de la Gestión Pública", "gpulido@cenagas.gob.mx", "55 5018 5400 ext. 3416", "Av. Insurgentes Sur No. 730, Piso 1 Y 2, Col. Del Valle, Alcaldía Benito Juárez, C.P. 03104, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Innovación Aplicada en Tecnologías Competitivas": [
+                ["Julieta González Saldaña", "Titular del Área de Responsabilidades", "jsaldana@ciatec.mx", "477 710 0011 ext. 11303", "Omega No. 201, Fracc.  Industrial Delta, C.P. 37545, León, Guanajuato", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Centro de Tecnología Avanzada Ciateq A.C.": [
+                ["Alfredo Hidalgo Suárez", " Titular del Área de Responsabilidades", "alfredo.hidalgo@ciateq.mx", "442 211 2600 ext.2620", "Calzada  De Retablo No. 150, Col. Constituyentes Fovissste, C.P. 76150,  Querétaro, Querétaro", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Colegio Nacional De Educación Profesional Técnica": [
+                ["Lcda. Clara Grecia Chávez Visoso", "Titular del Área de Responsabilidades", "cgchavez@conalep.edu.mx", "55 5480 3766 ext. 2050", "Calle 16 De Septiembre No. 147 Norte, Colonia Lázaro Cárdenas Metepec, México, D.F.C.P.  52148", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Federal De Electricidad": [
+                ["Lcdo. Emilio Sánchez Zavala", "Jefe de Departamento ", "emilio.sanchez@cfe.mx", "55 5229 4400 ext. 90530", "Av. Cuauhtémoc No. 536, Piso 4, Col. Narvarte, C.P. 03020, Alcaldía Benito Juárez, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Federal para la Protección Contra Riesgos Sanitarios": [
+                ["Mtro. Francisco Julián Arce Tapia - Lcdo. David Aguilar Gómez ", "Titular del Órgano Interno Específico - Enlace de Transparencia (Suplente) ", "cofepris_toic@funcionpublica.gob.mx - david.aguilar.oic@funcionpublica.gob.mx", "55 5080 5200 ext. 11533 y 11206 - 55 4178 5650", "Oklahoma 14, Colonia Nápoles, Alcaldía Benito Juárez, C.P. 03810, Ciudad De México.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Nacional Bancaria y de Valores": [
+                ["Lcda. Heidi Jimenez Reyes", "Titular del Área de Quejas, Denuncias e Investigación", "hjimenez@cnbv.gob.mx", "55 1454 6000, ext. 6664", "Av. Insurgentes Sur No. 1971, Torre Sur, 3Er Piso, Col. Guadalupe Inn, Alcaldía Álvaro Obregón, C.P. 01020, Ciudad De México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Nacional de Hidrocarburos": [
+                ["C.P. Laura Angélica Fuentes Pacheco", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "laura.fuentes@cnh.gob.mx", "55 1454 8500 ext. 8506", "Av. Patriotismo No. 580 Piso 2, Col. Nonoalco, Alcaldía Benito Juárez, C.P. 03700, Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Instituto De Salud Para El Bienestar": [
+                ["Mtra. María Elena Pacheco Velio Mejía", "Titular del Área de Quejas, Denuncias eInvestigaciones", "maria.pacheco@funcionpublica.gob.mx", "50-90-36-00 ext. 57492", "Gustavo E Campa No. 54, 1Er Piso, Col. Guadalupe Inn, Alcaldía Álvaro Obregón, C.P. 01020, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Nacional de Seguros y Fianzas": [
+                ["Lcda. Dolores Pilar Cruz Romero", "Titular del Área de Responsabilidades", "dcruz@cnsf.gob.mx", "55 5724 7474", "Av. Insurgentes Sur No. 1971, Torre Sur, Piso 2, Col. Guadalupe Inn, Alcaldía Álvaro Obregón, C.P. 01020, México D.F. ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Nacional del Agua": [
+                ["Lcda. Claudia Leticia Valladares Sánchez", "Titular del Área de Responsabilidades ", "c.valladares.oic@funcionpublica.gob.mx", "51-74-40-00  ext. 4681", "Insurgentes Sur No. 2416,  2° Piso Ala Poniente, Col. Copilco El Bajo, Alcaldía Coyoacán   C.P. 04340, Ciudad De México.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Nacional Forestal": [
+                ["Lcda. Sandra Raquel Baez Álvarez ", "Titular del Área de Responsabilidades ", "sandra.baez@conafor.gob.mx", "33 3777 7000 ext. 1450 Celular 5537 7409 68", "Av. Vallarta Eje Poniente No. 6503, Local B-22B, Col. Ciudad Granja, Zapopan, Jalisco, C.P. 45010.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros": [
+                ["Lcda. Beatriz Millán Pedraza", "Titular del Área de Quejas, Denuncias eInvestigaciones", "bmillan@condusef.gob.mx", "55 5448 7000 ext. 7176", "Av. Insurgentes Sur No. 762, Piso 9, Col. Del Valle, Alcaldía Benito Juárez, C.P. 03100, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Comisión Reguladora de Energía": [
+                ["Lizbeth Gabriela Reyes Barrera", "Titular del Área de Quejas, Denuncias e Investigaciones", "lreyes@cre.gob.mx", "55 5283 1515 ext.1909", "Boulevard Adolfo López Mateos 172, Cp.03930, Alcaldía Benito Juarez, Ciudad De México.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Consejería Jurídica del Ejecutivo Federal": [
+                ["Lcdo. Ernesto Rosales Méndez", " Titular del Área de Responsabilidades", "erosales@cjef.gob.mx", "55 3688 4400 ext. 4514", "Palacio Nacional, Edificio X Piso 3, Col. Centro, Alcaldía Cuauhtémoc, C.P. 06020, México, D. F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                // Agregar datos similares para otras opciones de Enlaces OIC
+                "Consejo Nacional de Humanidades, Ciencias y Tecnologías": [
+                ["Lcdo. Oscar García Palomares", "Titular del Área de Responsabilidades", "oscar.garcia@conahcyt.mx", "55 5322 7700 ext. 4330", "Av. Insurgentes Sur  No 1582,  4O Piso, Ala Norte,   Col. Crédito  Constructor, Alcaldía Benito Juarez, C.P. 03940, México D.F. ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Corredor Interoceánico del Istmo de Tehuantepec": [
+                ["Lcdo. Alberto Treviño Rosales", "Titular del Área de Quejas, Denuncias e Investigaciones", "alberto.trevino@ciit.gob.mx", "55 3688 5622", "Calle Dante No 14 , Col. Anzures, Alcaldía Miguel Hidalgo, Cp. 11590, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Corporación Mexicana de Investigaciones en Materiales S.A. de C.V.": [
+                ["Ernesto Alfaro Avendaño", "Titular de Quejas y Titular de Responsabilidades", "ernesto.alfaro@comimsa.com.mx", "84 44 11 32 00 ext. 1169 y 1341", "Av. Ceylán No. 450, Col. Euzkadi, C.P. 02660, Alcaldía Azcapotzalco, México D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Seguridad Alimentaria Mexicana (Diconsa, Liconsa y Segalmex).": [
+                ["Lcdo. José Saúl Gutiérrez Villarreal ", "Titular del Área de Quejas, Denuncias e Investigaciones", "saulg@diconsa.gob.mx", "5552290700 ext. 65926", "Ricardo Torres 1, Col. Fraccionamiento Lomas de Sotelo, Naucalpan de Juárez, Estado de México, C.P. 53390", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "El Colegio de la Frontera Norte A.C.": [
+                ["C.P. Beatriz Montes Arias", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "bmontes@colef.mx", "664 631 6300 ext. 1403", "Carretera Escénica Tijuana-Ensenada Toll Boot Escénica Tijuana-Ensenada Sn San Antonio del Mar, 22560 Tijuana, B.C.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "El Colegio de la Frontera Sur": [
+                ["Lcda. Carmen Santiago Domínguez Barrios", "Titular del Órgano Interno de Control Específico", "ecosur_toic@funcionpublica.gob.mx  oic@ecosur.mx", "967 674 9000 ext. 1196", "Carretera Panamericana Y Periférico Sur S/N, Barrio De María Auxiliadora C.P. 29290, San Cristóbal De Las Casas Chiapas", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "El Colegio de Michoacán A.C.": [
+                ["C.P. Leticia Méndez Hurtado", "Titular del Órgano Interno de Control Específico", "lmendez@colmich.edu.mx", "351 515 7100 ext. 1841", "Martínez De Navarrete No. 505, Fracc. Las Fuentes, C.P. 59699 Zamora Michoacán", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "El Colegio de San Luis, A.C.": [
+                ["Mtra. Rocío García Vázquez", "Titular del Órgano Interno de Control", "rocio.garcia@colsan.edu.mx", "44- 48-11-01-01 ext. 8240", "Parque de Macul #155, Fraccionamiento Colinas del Parque, C.P. 78294, San Luis Potosí, S.L.P.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Exportadora de Sal S.A. de C.V.": [
+                ["Lcdo. Luis Fernando Flores Navarro", "Titular del Área de Responsabilidades", "taressa@essa.com.mx", "61 5157 5100 ext. 1424", "Av. Baja California  S/N Centro 23940 Baja California Sur", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Ferrocarril del Istmo de Tehuantepec S.A. de C.V.": [
+                ["Lcdo. Antonio Berdeja Rivas", "Titular del Órgano Interno de Control", "antonio.berdeja@ferroistmo.com.mx", "9211636618  2281549444 ext. 2109 y 2110", "CALLE CORREGIDORA No. 700. COL. CENTRO, COATZACOALCOS, VERACRUZ, C.P. 96400.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Financiera Nacional de Desarrollo Agropecuario, Rural, Forestal y Pesquero": [
+                ["Lcda. Nayeli Mendoza Rodríguez", "Titular del Área de Quejas Denuncias e Investigaciones", "nayeli.mendoza@fnd.gob.mx", "55-52-30-16-00 ext. 1075", "Frontera 16. Colonia Roma, Cuauhtémoc, C.P 06700 CDMX ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Financiera para el Bienestar": [
+                ["Guillermo Soto Morales", "Jefe de Departamento de Responsabilidades", "guillermo.soto@finabien.gob.mx", "55 5090 1100 ext. 1588", "Av. De las Telecomunicaciones S/N, Colonia Leyes de Reforma, Alcaldía Iztapalapa, Ciudad de México, C.P. 09310", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Fondo de la Vivienda del ISSSTE": [
+                ["Lcdo. Rigoberto Galeana Rodríguez", "Titular del Área de Responsabilidades", "rigoberto.galeanar@fovissste.gob.mx", " 55 5322 0497 ext. 85403", "Miguel Norena #28 piso 7, San José Insurgentes, C.P 03900 Benito Juárez, CDMX.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Fondo Nacional de Fomento al Turismo y Empresas de Participación Accionaria": [
+                ["L.C.P. Daniel Mendiola Fonseca", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "dmendiola@fonatur.gob.mx", "55 5090 4200 ext. 4433", "Insurgentes Sur No. 2453, Torre Murano, Piso 2, Col. Tizapan, C.P. 01090, Alcaldía Álvaro Obregón, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Grupo Aeroportuario de la Ciudad de México S.A. De C.V.": [
+                ["Lcdo. Héctor Juárez Torres", "Gerente de Mejora de la Gestión", "hector.juarez@gacm.mx", "55 9001 4000 ext. 4072", "Calzada De Tlalpan 4800, Col. Sección Xvi, Alcaldía Tlalpan, C.P. 14080, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto De Ecología A.C.": [
+                ["Lcda. Yazmin González González ", " Titular del Área de Responsabilidades", "yazmin.gonzalez@inecol.mx ", "228 842 18 08", "Carretera Antigua A Coatepec No. 351, Edifi. B, 1Er Piso, Col. El Haya. C.P. 91070, Xalapa Veracruz", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto De Investigaciones Dr. José María Luis Mora": [
+                ["Lcdo. Leopoldo Eugenio Riva Palacio Martinez", "Titular del Órgano Interno de Control", "lerivapalacio@institutomora.edu.mx", "55 5598 3777 ext. 2230 y 2231", "Plaza Valentín Gómez Farías #12, segundo piso, Col. San Juan Mixcoac, Benito Juárez, CDMX, C.P. 03730", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto de Seguridad Social para las Fuerzas Armadas Mexicanas": [
+                ["Mif. Rubén Sergio Rico Flores", "Titular del Área de Auditoría para Desarrollo y Mejora de la Gestión Pública", "audcye@issfam.gob.mx", "55 2122 0600 ext. 1693", "Av. Industria Militar No.1053, Piso 6, Col. Lomas de Sotelo, Alcaldía Miguel Hidalgo, C.P. 11200, Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado": [
+                ["Lcdo. Edgar Darío Ordóñez Hernández", "Titular del Área de Quejas, Denuncias e Investigaciones", "edgar.ordonez@issste.gob.mx", "55 54 81-68 00 ext. 26481", "Av. División Del Norte 2462, 5O. Piso, Col. Portales, Alcaldía Benito Juárez, C.P. 03300. México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto del Fondo Nacional para el Consumo de los Trabajadores": [
+                ["Lcdo. Conrado López Becerril", "Gerente de Responsabilidades", "conrado.lopez@fonacot.gob.mx", "55 5265 7400 ext. 7953", "Serapio Rendón No.76, Mezzanine, Col. San Rafael, Alcaldía Cuauhtémoc, C.P. 06470, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Mexicano del Petróleo": [
+                ["Lcdo. Alejandro Arenas Martínez", "Titular del Área de Responsabilidades", "aarenas@imp.mx", "55 9175 8171", "Eje Central Lázaro Cárdenas Note 152, Edificio 19 Piso 1, Col. San Bartolo Atepehuacan, Gustavo A. Madero, 07730 Ciudad de México, CDMX", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Mexicano del Seguro Social": [
+                ["Mtra. Sandra Flores Perez ", "Titular de la Coordinación de Vinculación Operativa", "sandra.floresp@imss.gob.mx", "55 5238 2700 ext. 16618", "Avenida Revolución Número 1586, Colonia San Ángel, delegación Álvaro Obregón, C.P. 01000, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Nacional De Antropología E Historia": [
+                ["Lcdo. Hugo Usiel Nolasco Alarcón", "Titular del Área de Quejas", "hugo_nolasco@inah.gob.mx", "55 4166-0780 ext. 415976", "Nueva York No. 224, Col. Nápoles, Alcaldía Benito Juárez, C.P. 03810, México D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Nacional de Astrofísica, Óptica y Electrónica": [
+                ["Lcda. Verónica Yamilet Martínez Tamayo", "Titular del Área de Responsabilidades", "vmartinez@inaoep.mx", "222 247 2011 y 222 266 3100 ext. 5402", "Luis Enrique Erro No. 1, Sta. María Tonanzintla, 72840 San Andrés Cholula, Pue.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Nacional de las Mujeres": [
+                ["Lcda. Patricia Yolanda Amezcua Moreno", " Titular del Área de Responsabilidades", "pyamezcua@inmujeres.gob.mx", "53-22-42-00, ext. 8300", "Barranca del Muerto 209, San José Insurgentes, Benito Juárez, 03900 Ciudad de México, CDMX", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Nacional de los Pueblos Indígenas": [
+                ["Lcdo. Manuel Pérez Tlapalamatl", " Titular del Área de Responsabilidades", "mperez@inpi.gob.mx", "55 1851 8914", "Homero 1832, Piso 9, Col. Los Morales, Polanco, Alcaldía Miguel Hidalgo, C.P. 11510, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto para la Protección al Ahorro Bancario": [
+                ["Lcdo. Gerardo René Mojarro González", "Titular del Área de Responsabilidades", "grmojarro@ipab.org.mx", "55 5209 5500 ext. 6514", "Varsovia No. 19, Planta Baja, Colonia Juárez, Alcaldía Cuauhtémoc, Código Postal 06600, Ciudad de México.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto para Devolver al Pueblo lo Robado": [
+                ["Mtra. Claudia Pérez Espíndola", "Titular del Área de Quejas, Denuncias e Investigaciones", "cpereze@indep.gob.mx    cjmata@fnml.gob.mx", "55 1719 1600 ext.  5673", "Insurgentes Sur 1931, Col. Guadalupe Inn, Alcaldía Álvaro Obregón, Ciudad de México, C. P. 01020, ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Politécnico Nacional": [
+                ["C.P. José Hoyos Ibarra", "Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "jhoyos@ipn.mx", "55 5729 6000 ext. 51793 y 51874", "Av. Luis Enrique Erro S/N, Unidad Profesional Adolfo López Mateos, Zacatenco, Alcaldía Gustavo A. Madero, C.P. 07738, Ciudad de México.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Instituto Potosino de Investigación Científica y Tecnológica A.C.": [
+                ["Lcdo. Alejandro Ibarra Polendo ", "Titular del Área de Quejas", "alejandro.ibarra@ipicyt.edu.mx", "444-834-20-00 ext. 7319", "Av. De La República No. 117, Piso 2O Piso, Col. Tabacalera, Alcaldía Cuauhtémoc, C. P. 06030, México, D.F. ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Laboratorios de Biológicos y Reactivos de México S.A. de C.V.": [
+                ["C.P. Leopoldo Gómez Gen ", " Titular del Área de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "lgomezg@birmex.gob.mx", "55 5386 5806", "Calzada General Mariano Escobedo No. 20, Col. Popotla, Alcaldía Miguel Hidalgo, C.P. 11400, Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Lotería Nacional": [
+                ["Lcdo. Juan Alejandro de la Parra Guzmán", "Titular del Área de Quejas Denuncias e Investigaciones", "juan.delaparra@loterianacional.gob.mx", " 55 5482 0000 ext. 5320", "Av. Insurgentes Sur 1397, piso 8, Col. Insurgentes Mixcoac, Alcaldía Benito Juárez, CDMX.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Nacional Financiera S.N.C., I.B.D.": [
+                ["Lcda. Angélica González Valencia", " Titular del Área de Responsabilidades", "agonzalezv@nafin.gob.mx ", "55 5325 6204", "Insurgentes Sur 1971, Torre IV, Piso 9, Col. Guadalupe Inn, Álvaro Obregón, CDMX, C.P. 01020", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Petróleos Mexicanos": [
+                ["Lcdo. Ricardo López Uribe", "Coordinador de Apoyo Técnico de la Subgerencia de Vinculación", "ricardo.lopezu@pemex.com", "55 1944 2500 ext. 811-32605  32708#", "Av. Marina Nacional 329, Torre Ejecutiva piso 19, Col. Verónica Anzures, C.P. 11300, Miguel Hidalgo, CDMX.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Guardia Nacional": [
+                ["Lcdo. Julio Zoravilla Petrikowski", "Titular del Área de Auditoría", "julio.zoravilla@gn.gob.mx", "55 5481-4300 Ext. 23102", "Av. José Vasconcelos No. 208, 9O Piso, Col. Condesa, C.P. 06140, Alcaldía Cuauhtémoc, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Presidencia de la República": [
+                ["Mtro. José Luis Carrillo Becerril", "Titular del Área de Responsabilidades", "joseluis.carrillo@presidencia.gob.mx    jose.carrillo.oic@funcionpublica.gob.mx", "55 5093 4800 ext. 4866", "Av. Constituyentes #161 San Miguel Chapultepec II Sección, Miguel Hidalgo", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Procuraduría Agraria": [
+                ["Mtro. Gerardo Parra Becerril", " Titular del Área de Responsabilidades", "gerardo.parra@pa.gob.mx", "55 1500 3300 ext. 4382", "Motolinía No. 11, PB , Col. Centro,  Alcaldía Cuauhtémoc, Ciudad de México, C.P. 06000  ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Procuraduría Federal del Consumidor": [
+                ["Lcdo. Carlos Alberto Martínez Luna", "Coordinador de Responsabilidades e Inconformidades", "camartinezl@profeco.gob.mx", "55 3649 7200", "Avenida José Vasconcelos, #208, piso 9, Col. Condesa, C.P. 06140, Alcaldía Cuauhtémoc, CDMX", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Organismo Promotor de Inversiones en Telecomunicaciones": [
+                ["Lcdo. Gustavo Altamirano Ruiz de Chávez", "Titular del Área de Quejas, Denuncias e Investigaciones", "gustavo.altamirano@promtel.gob.mx", "55 1328 6554", "Avenida Xola No.535. Colonia Del Valle, Delegación Benito Juárez. C.P. 03100, Ciudad De México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Secretaría de la Defensa Nacional": [
+                ["C. María de Jesús Hernández Hernández", "Oficial de enlace del O.I.C  en la SEDENA", "sedena_toic@funcionpublica.gob.mx", "55 76 46 57 84", "Blvd. Manuel Ávila Camacho, Esq. Av. Industria Militar.  S/N  Lomas de Sotelo  11200 Ciudad de México", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Secretaría de Marina": [
+                ["Ismael Organista Albañil", "Sin cargo", "semar_toic@funcionpublica.gob.mx", "55 21 38 73 53", "Avenida Heroica Escuela Naval Militar Núm. 861, Edificio C, Planta Baja,  Los Cipreses, Coyoacán, Ciudad De México. C.P. 04830", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Servicio de Administración Tributaria": [
+                ["Lcda. Martha Avilés González", "Titular del Área  de Auditoría Interna, Desarrollo y Mejora de la Gestión Pública", "martha.avilesg@sat.gob.mx", "55 5802 1069 Ext. 41069", "Av. Hidalgo 77, Módulo IV, Piso 5, Col, Guerrero, Alcaldía Cuauhtémoc C.P. 06300 México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Servicio Postal Mexicano": [
+                ["Lcdo. Aarón Leal Quintanar", "Titular del Área de Quejas, Denuncias e Investigaciones", "aleal@correosdemexico.gob.mx", "55 5336 8900  ext. 25608", "Calle Vicente García Torres No. 235, 4O Piso, Col. El Rosedal, Alcaldía Coyoacán, México, D.F. C.P. 04330", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Servicios de Salud del Instituto Mexicano del Seguro Social para el Bienestar": [
+                ["Lcda. Guadalupe Peredo Macías", "Directora de Responsabilidades B", "guadalupe.peredo@imssbienestar.gob.mx", "55 2945 2511", "Gustavo E Campa No. 54, Col. Guadalupe Inn, Alcaldía Álvaro Obregón, C.P. 01020, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Sistema Nacional para el Desarrollo Integral de la Familia": [
+                ["Lcdo. Luis Enrique  Sarabia Gallardo", "Titular del Área de Responsabilidades", "luis.sarabia@dif.gob.mx", "55 3003 2200 ext. 7280", "Prolongación Xochicalco 947, P.B., Col. Santa Cruz Atoyac, Alcaldía Benito Juárez, C.P. 03310, México D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Sociedad Hipotecaria Federal, S.N.C.": [
+                ["Lcdo. Sergio Hernández Ramírez", "Titular del Área de Responsabilidades", "shernandez@shf.gob.mx ", "5552634500  Ext. 4484", "Avenida Ejercito Nacional 180, piso 2, Col. Anzures, Alcaldía Miguel Hidalgo, C.P. 11590, Ciudad de México ", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Superissste": [
+                ["Lcda. Julieta Beatriz Peña Vallejo", "Titular del Área de Responsabilidades", "julieta.pena@superissste.gob.mx", "55 5447 6200 ext. 97944", "Av. Insurgentes Sur No. 899, 4O Piso,  Col. Ampliación Nápoles C.P. 03840 Alcaldía Benito Juárez, México, D.F.", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+                 // Agregar datos similares para otras opciones de Enlaces OIC
+                 "Tren Maya, S.A. de C.V.": [
+                ["Mtra. María Guadalupe Vega Pereyra", "Titular del Área de Quejas, Denuncias e Investigaciones", "toic_trenmaya@funcionpublica.gob.mx", "55 8239 0063", "", "<a href='documento.pdf' target='_blank'><img src='pdf-icon.png' alt='PDF Icon'> Ver PDF</a>"],
+                ],
+            };
+            
+            if (data[enlace]) {
+                data[enlace].forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.innerHTML = cell;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ramo-select').addEventListener('change', updateTable);
+            document.getElementById('enlace-select').addEventListener('change', updateEnlacesTable);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <img src="img/LOGO-SFP.png" alt="Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#soporte" id="soporte-btn">Soporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Modal de Soporte -->
+    <div id="modal-soporte" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Contacto de Soporte</h2>
+            <p>Nombre: John Doe</p>
+            <p>Correo: soporte@example.com</p>
+            <p>Teléfono: +52 123 456 7890</p>
+        </div>
+    </div>
+
+    <!-- Pestañas -->
+    <div class="tab-container">
+        <button class="tab-btn" onclick="openTab(event, 'OIC-por-Ramo')">OIC por RAMO</button>
+        <button class="tab-btn" onclick="openTab(event, 'Enlaces-OIC-Especificos')">ENLACES OIC ESPECÍFICOS</button>
+    </div>
+
+    <!-- Contenido de las pestañas -->
+    <div id="OIC-por-Ramo" class="tab-content" style="display: block;">
+        <h2>Buscar OIC por RAMO:</h2>
+        <select id="ramo-select">
+            <option value="Gobernación">I. Gobernación</option>
+            <option value="Relaciones Exteriores">II. Relaciones Exteriores</option>
+            <option value="Seguridad y Protección Ciudadana">III. Seguridad y Protección Ciudadana</option>
+            <option value="Hacienda">IV. Hacienda</option>
+            <option value="Bienestar">V. Bienestar</option>
+            <option value="Medio Ambiente y Recursos Naturales">VI. Medio Ambiente y Recursos Naturales</option>
+            <option value="Energía">VII. Energía</option>
+            <option value="Economía">VIII. Economía</option>
+            <option value="Agricultura y Desarrollo Rural">IX. Agricultura y Desarrollo Rural</option>
+            <option value="Infraestructura, Comunicaciones y Transportes">X. Infraestructura, Comunicaciones y Transportes</option>
+            <option value="Educación Pública">XI. Educación Pública</option>
+            <option value="Salud">XII. Salud</option>
+            <option value="Trabajo y Previsión Social">XIII. Trabajo y Previsión Social</option>
+            <option value="Desarrollo Agrario, Territorial y Urbano">XIV. Desarrollo Agrario, Territorial y Urbano</option>
+            <option value="Cultura">XV. Cultura</option>
+            <option value="Turismo">XVI. Turismo</option>
+        </select>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th><img src="img/edificio.png" alt="Icono"> Nombre del Ramo</th>
+                    <th><img src="img/trabajo-en-equipo.png" alt="Icono"> Nombre del OIC especializado</th>
+                    <th><img src="img/trabajo-en-equipo.png" alt="Icono"> Nombre del enlace</th>
+                    <th><img src="img/puesto-de-trabajo.png" alt="Icono"> Cargo</th>
+                    <th><img src="img/telefono.png" alt="Icono"> Teléfono y Extensión</th>
+                    <th><img src="img/microsoft-outlook.png" alt="Icono"> Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Filas con datos pre-cargados para cada opción de RAMO -->
+            </tbody>
+        </table>
+        
+        <!-- Paginación -->
+        <div class="pagination">
+            <button class="prev-btn">Anterior</button>
+            <button class="next-btn">Siguiente</button>
+        </div>
+    </div>
+
+    <div id="Enlaces-OIC-Especificos" class="tab-content" style="display: none;">
+        <h2>Buscar OIC Específicos:</h2>
+        <select id="enlace-select">
+            <option value="Autoridad Educativa Federal de la Ciudad de México">Autoridad Educativa Federal de la Ciudad de México</option>
+            <option value="Administración del Sistema Portuario Altamira">Administración del Sistema Portuario Altamira</option>
+            <option value="Administración del Sistema Portuario Nacional Coatzacoalcos S.A. de C.V.">Administración del Sistema Portuario Nacional Coatzacoalcos S.A. de C.V.</option>
+            <option value="Administración del Sistema Portuario Integral De Dos Bocas S.A. De C.V.">Administración del Sistema Portuario Integral De Dos Bocas S.A. De C.V.</option>
+            <option value="Administración del Sistema Portuario Integral De Ensenada S.A. De C.V.">Administración del Sistema Portuario Integral De Ensenada S.A. De C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Guaymas S.A. de C.V.">Administración del Sistema Portuario Nacional Guaymas S.A. de C.V. </option>
+            <option value="Administración del Sistema Portuario Nacional Lázaro Cárdenas S.A. De C.V.">Administración del Sistema Portuario Nacional Lázaro Cárdenas S.A. De C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Manzanillo S.A. De C.V">Administración del Sistema Portuario Nacional Manzanillo S.A. De C.V</option>
+            <option value="Administración del Sistema Portuario Integral De Mazatlán S.A. De C.V.">Administración del Sistema Portuario Integral De Mazatlán S.A. De C.V.</option>
+            <option value="Administración del Sistema Portuario Integral De Progreso S.A.De C.V.">Administración del Sistema Portuario Integral De Progreso S.A.De C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Puerto Chiapas, S.A. de C.V.">Administración del Sistema Portuario Nacional Puerto Chiapas, S.A. de C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Puerto Vallarta, S.A. de C.V.">Administración del Sistema Portuario Nacional Puerto Vallarta, S.A. de C.V.</option>
+            <option value="Administración del Sistema Portuario Integral De Salina Cruz S.A. De C.V.">Administración del Sistema Portuario Integral De Salina Cruz S.A. De C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Tampico, S.A. de C.V.">Administración del Sistema Portuario Nacional Tampico, S.A. de C.V.</option>
+            <option value="Administración del Sistema Portuario Integral De Topolobampo, S.A. De C.V.">Administración del Sistema Portuario Integral De Topolobampo, S.A. De C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Tuxpán S.A. de C.V.">Administración del Sistema Portuario Naciona Tuxpán S.A. de C.V.</option>
+            <option value="Administración del Sistema Portuario Nacional Veracruz S.A. de C.V.">Administración del Sistema Portuario Nacional Veracruz S.A. de C.V.</option>
+            <option value="Aeropuerto Internacional de la Ciudad de México S.A. de C.V. y Servicios Aeroportuarios de la Ciudad de México S.A. de C.V.">Aeropuerto Internacional de la Ciudad de México S.A. de C.V. y Servicios Aeroportuarios de la Ciudad de México S.A. de C.V.</option>
+            <option value="Aeropuerto Internacional Felipe Ángeles">Aeropuerto Internacional Felipe Ángeles</option>
+            <option value="Aeropuertos y Servicios Auxiliares">Aeropuertos y Servicios Auxiliares</option>
+            <option value="Agencia Nacional de Aduanas de México">Agencia Nacional de Aduanas de México</option>
+            <option value="Agencia Espacial Mexicana">Agencia Espacial Mexicana</option>
+            <option value="Banco del Bienestar, S.N.C., I.B.D.">Banco del Bienestar, S.N.C., I.B.D.</option>
+            <option value="Banco Nacional de Comercio Exterior, S.N.C.">Banco Nacional de Comercio Exterior, S.N.C.</option>
+            <option value="Banco Nacional de Obras y Servicios Públicos, S.N.C">Banco Nacional de Obras y Servicios Públicos, S.N.C</option>
+            <option value="Banco Nacional del Ejército, Fuerza Aérea, y Armada S.N.C">Banco Nacional del Ejército, Fuerza Aérea, y Armada S.N.C</option>
+            <option value="Caminos y Puentes Federales de Ingresos y Servicios Conexos">Caminos y Puentes Federales de Ingresos y Servicios Conexos</option>
+            <option value="Centro De Ingeniería y Desarrollo Industrial">Centro De Ingeniería y Desarrollo Industrial</option>
+            <option value="Centro de Investigación Científica de Yucatán A.C.">Centro de Investigación Científica de Yucatán A.C.</option>
+            <option value="Centro de Investigación Científica y de Educación Superior de Ensenada, Baja California">Centro de Investigación Científica y de Educación Superior de Ensenada, Baja California</option>
+            <option value="Centro de Investigación e Innovación en Tecnología de la Información y Comunicación">Centro de Investigación e Innovación en Tecnología de la Información y Comunicación</option>
+            <option value="Centro de Investigación en Alimentación y Desarrollo A.C.">Centro de Investigación en Alimentación y Desarrollo A.C.</option>
+            <option value="Centro de Investigación en Ciencias de Información Geoespacial. A.C.">Centro de Investigación en Ciencias de Información Geoespacial. A.C.</option>
+            <option value="Centro de Investigación en Matemáticas A.C.">Centro de Investigación en Matemáticas A.C.</option>
+            <option value="Centro de Investigación en Materiales Avanzados S.C.">Centro de Investigación en Materiales Avanzados S.C.</option>
+            <option value="Centro de Investigación en Química Aplicada">Centro de Investigación en Química Aplicada</option>
+            <option value="Centro de Investigación y Asistencia en Tecnología y Diseño del Estado de Jalisco A.C.">Centro de Investigación y Asistencia en Tecnología y Diseño del Estado de Jalisco A.C.</option>
+            <option value="Centro de Investigación y Desarrollo Tecnológico en Electroquímica, S.C.">Centro de Investigación y Desarrollo Tecnológico en Electroquímica, S.C.</option>
+            <option value="Centro de Investigación y Docencia Económicas, A.C.">Centro de Investigación y Docencia Económicas, A.C.</option>
+            <option value="Centro Nacional de Inteligencia">Centro Nacional de Inteligencia</option>
+            <option value="Centro de Investigaciones Biológicas del Noroeste S.C.">Centro de Investigaciones Biológicas del Noroeste S.C.</option>
+            <option value="Centro de Investigaciones en Óptica A.C.">Centro de Investigaciones en Óptica A.C.</option>
+            <option value="Centro de Investigaciones y Estudios Superiores en Antropología Social">Centro de Investigaciones y Estudios Superiores en Antropología Social</option>
+            <option value="Centro Nacional de Control de Energía">Centro Nacional de Control de Energía</option>
+            <option value="Centro Nacional de Control del Gas Natural">Centro Nacional de Control del Gas Natural</option>
+            <option value="Centro de Innovación Aplicada en Tecnologías Competitivas">Centro de Innovación Aplicada en Tecnologías Competitivas</option>
+            <option value="Centro de Tecnología Avanzada Ciateq A.C.">Centro de Tecnología Avanzada Ciateq A.C.</option>
+            <option value="Colegio Nacional De Educación Profesional Técnica">Colegio Nacional De Educación Profesional Técnica</option>
+            <option value="Comisión Federal De Electricidad">Comisión Federal De Electricidad</option>
+            <option value="Comisión Federal para la Protección Contra Riesgos Sanitarios">Comisión Federal para la Protección Contra Riesgos Sanitarios</option>
+            <option value="Comisión Nacional Bancaria y de Valores">Comisión Nacional Bancaria y de Valores</option>
+            <option value="Comisión Nacional de Hidrocarburos">Comisión Nacional de Hidrocarburos</option>
+            <option value="Instituto De Salud Para El Bienestar">Instituto De Salud Para El Bienestar</option>
+            <option value="Comisión Nacional de Seguros y Fianzas">Comisión Nacional de Seguros y Fianzas</option>
+            <option value="Comisión Nacional del Agua">Comisión Nacional del Agua</option>
+            <option value="Comisión Nacional Forestal">Comisión Nacional Forestal</option>
+            <option value="Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros">Comisión Nacional para la Protección y Defensa de los Usuarios de Servicio Financieros</option>
+            <option value="Comisión Reguladora de Energía">Comisión Reguladora de Energía</option>
+            <option value="Consejería Jurídica del Ejecutivo Federal">Consejería Jurídica del Ejecutivo Federal</option>
+            <option value="Consejo Nacional de Humanidades, Ciencias y Tecnologías">Consejo Nacional de Humanidades, Ciencias Tecnologías</option>
+            <option value="Corredor Interoceánico del Istmo de Tehuantepec">Corredor Interoceánico del Istmo de Tehuantepec</option>
+            <option value="Corporación Mexicana de Investigaciones en Materiales S.A. de C.V.">Corporación Mexicana de Investigaciones en Materiales S.A. de C.V.</option>
+            <option value="Seguridad Alimentaria Mexicana (Diconsa, Liconsa y Segalmex).">Seguridad Alimentaria Mexicana (Diconsa, Liconsa y Segalmex).</option>
+            <option value="El Colegio de la Frontera Norte A.C.">El Colegio de la Frontera Norte A.C.</option>
+            <option value="El Colegio de la Frontera Sur">El Colegio de la Frontera Sur</option>
+            <option value="El Colegio de Michoacán A.C.">El Colegio de Michoacán A.C.</option>
+            <option value="El Colegio de San Luis, A.C.">El Colegio de San Luis, A.C.</option>
+            <option value="Exportadora de Sal S.A. de C.V.">Exportadora de Sal S.A. de C.V.</option>
+            <option value="Ferrocarril del Istmo de Tehuantepec S.A. de C.V.">Ferrocarril del Istmo de Tehuantepec S.A. de C.V.</option>
+            <option value="Financiera Nacional de Desarrollo Agropecuario, Rural, Forestal y Pesquero">Financiera Nacional de Desarrollo Agropecuario, Rural, Forestal y Pesquero</option>
+            <option value="Financiera para el Bienestar">Financiera para el Bienestar</option>
+            <option value="Fondo de la Vivienda del ISSSTE">Fondo de la Vivienda del ISSSTE</option>
+            <option value="Fondo Nacional de Fomento al Turismo y Empresas de Participación Accionaria">Fondo Nacional de Fomento al Turismo y Empresas de Participación Accionaria</option>
+            <option value="Grupo Aeroportuario de la Ciudad de México S.A. De C.V.">Grupo Aeroportuario de la Ciudad de México S.A. De C.V.</option>
+            <option value="Instituto De Ecología A.C.">Instituto De Ecología A.C.</option>
+            <option value="Instituto De Investigaciones Dr. José María Luis Mora">Instituto De Investigaciones Dr. José María Luis Mora</option>
+            <option value="Instituto de Seguridad Social para las Fuerzas Armadas Mexicanas">Instituto de Seguridad Social para las Fuerzas Armadas Mexicanas</option>
+            <option value="Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado">Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado</option>
+            <option value="Instituto del Fondo Nacional para el Consumo de los Trabajadores">Instituto del Fondo Nacional para el Consumo de los Trabajadores</option>
+            <option value="Instituto Mexicano del Petróleo">Instituto Mexicano del Petróleo</option>
+            <option value="Instituto Mexicano del Seguro Social">Instituto Mexicano del Seguro Social</option>
+            <option value="Instituto Nacional De Antropología E Historia">Instituto Nacional De Antropología E Historia</option>
+            <option value="Instituto Nacional de Astrofísica, Óptica y Electrónica">Instituto Nacional de Astrofísica, Óptica y Electrónica</option>
+            <option value="Instituto Nacional de las Mujeres">Instituto Nacional de las Mujeres</option>
+            <option value="Instituto Nacional de los Pueblos Indígenas">Instituto Nacional de los Pueblos Indígenas</option>
+            <option value="Instituto para la Protección al Ahorro Bancario">Instituto para la Protección al Ahorro Bancario</option>
+            <option value="Instituto para Devolver al Pueblo lo Robado">Instituto para Devolver al Pueblo lo Robado</option>
+            <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
+            <option value="Instituto Potosino de Investigación Científica y Tecnológica A.C.">Instituto Potosino de Investigación Científica y Tecnológica A.C.</option>
+            <option value="Laboratorios de Biológicos y Reactivos de México S.A. de C.V.">Laboratorios de Biológicos y Reactivos de México S.A. de C.V.</option>
+            <option value="Lotería Nacional">Lotería Nacional</option>
+            <option value="Nacional Financiera S.N.C., I.B.D.">Nacional Financiera S.N.C., I.B.D.</option>
+            <option value="Petróleos Mexicanos">Petróleos Mexicanos</option>
+            <option value="Guardia Nacional">Guardia Nacional</option>
+            <option value="Presidencia de la República">Presidencia de la República</option>
+            <option value="Procuraduría Agraria">Procuraduría Agraria</option>
+            <option value="Procuraduría Federal del Consumidor">Procuraduría Federal del Consumidor</option>
+            <option value="Organismo Promotor de Inversiones en Telecomunicaciones">Organismo Promotor de Inversiones en Telecomunicaciones</option>
+            <option value="Secretaría de la Defensa Nacional">Secretaría de la Defensa Nacional</option>
+            <option value="Secretaría de Marina">Secretaría de Marina</option>
+            <option value="Servicio de Administración Tributaria">Servicio de Administración Tributaria</option>
+            <option value="Servicio Postal Mexicano">Servicio Postal Mexicano</option>
+            <option value="Servicios de Salud del Instituto Mexicano del Seguro Social para el Bienestar">Servicios de Salud del Instituto Mexicano del Seguro Social para el Bienestar</option>
+            <option value="Sistema Nacional para el Desarrollo Integral de la Familia">Sistema Nacional para el Desarrollo Integral de la Familia</option>
+            <option value="Sociedad Hipotecaria Federal, S.N.C.">Sociedad Hipotecaria Federal, S.N.C.</option>
+            <option value="Superissste">Superissste</option>
+            <option value="Tren Maya, S.A. de C.V.">Tren Maya, S.A. de C.V.</option>
+            <option value=""></option>
+            <!-- Agregar las demás opciones aquí -->
+
+        </select>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th><img src="img/edificio.png" alt="Icono"> Nombre del Enlace de Transparencia</th>
+                    <th><img src="img/puesto-de-trabajo.png" alt="Icono"> Cargo</th>
+                    <th><img src="img/microsoft-outlook.png" alt="Icono"> Correo</th>
+                    <th><img src="img/trabajo-en-equipo.png" alt="Icono"> Teléfono y Extensión</th>
+                    <th><img src="img/mapas-de-google.png" alt="Icono"> Ubicación</th>
+                    <th><img src="img/archivo-pdf.png" alt="Icono"> Oficio de Designación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Filas con datos pre-cargados para cada opción de OIC Específicos -->
+            </tbody>
+        </table>
+        
+        <!-- Paginación -->
+        <div class="pagination">
+            <button class="prev-btn">Anterior</button>
+            <button class="next-btn">Siguiente</button>
+        </div>
+    </div>
+    <br>
+    <br><br>
+    <br>
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Nombre de la Institución. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
